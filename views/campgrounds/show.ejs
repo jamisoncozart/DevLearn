@@ -11,20 +11,26 @@
 			</div>
 		</div>
 		<div class="col-md-9">
-			<div class="thumbnail">
-				<img class="img-responsive" src="<%= campground.image; %>">
-				<div class="caption-full">
-					<h4 class="pull-right">$<%= campground.price %>/night</h4>
-					<h4><a><%= campground.name; %></a></h4>
+			<div class="card">
+				<img class="card-img-top" src="<%= campground.image; %>">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-sm">
+							<h4><a><strong><%= campground.name; %></strong></a></h4>
+						</div>
+						<div class="col-sm">
+							<p class="text-right"><strong>$<%= campground.price %>/night</strong></p>
+						</div>
+					</div>
 					<p><%= campground.description; %></p>
-					<p>
+					<p style="margin: 0;">
 						<em>Submitted By: <%= campground.author.username %></em>
 					</p>
 					
 					<% if(currentUser && campground.author.id.equals(currentUser._id)){ %>
-					<a class="btn btn-xs btn-warning" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
+					<a class="btn btn-sm btn-warning" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
 					<form class="delete-form" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
-						<button class="btn btn-xs btn-danger">Delete</button>
+						<button type="button" class="btn btn-danger btn-sm">Delete</button>
 					</form>
 					<% }; %>
 				</div>
@@ -41,9 +47,9 @@
 							<span class="pull-right">10 days ago</span>
 							<p><%= comment.text %></p>
 							<% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
-								<a class="btn btn-xs btn-warning" href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit">Edit</a>
+								<a class="btn btn-small btn-warning" href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit">Edit</a>
 								<form class="delete-form" action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
-									<input type="submit" class="btn btn-xs btn-danger" value="Delete">
+									<input type="submit" class="btn btn-small btn-danger" value="Delete">
 								</form>
 							<% }; %>
 						</div>
