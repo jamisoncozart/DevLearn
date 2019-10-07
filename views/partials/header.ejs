@@ -26,7 +26,7 @@
 						<li class="mx-2 nav-item"><a class="nav-link" href="/login">Login</a></li>
 						<li class="mx-2 nav-item"><a class="nav-link" href="/register">Signup</a></li>
 					<% } else{ //if logged in %>
-						<li class="mx-2 nav-item"><a href="#"><strong><%= currentUser.username %></strong></a></li>
+						<li class="mx-2 nav-item"><a class="nav-link" href="#"><strong><%= currentUser.username %></strong></a></li>
 						<li class="mx-2 nav-item"><a class="nav-link" href="/logout">Logout</a></li>
 					<% }; %>
 				</ul>
