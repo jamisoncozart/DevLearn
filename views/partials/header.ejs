@@ -1,0 +1,50 @@
+<!Doctype html>
+<html>
+	<head>
+		<title>YelpCamp</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link href="https://fonts.googleapis.com/css?family=Roboto:400,900&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="/stylesheets/main.css">
+	</head>
+<body>
+	<nav class="navbar navbar-default">
+		<div class="container">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="/">YelpCamp</a>
+				</div>
+				<div >
+					<ul class="nav navbar-nav navbar-left">
+						<li><a class="navButton" href="/campgrounds">Home</a></li>
+					</ul>
+				</div>
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<% //if not logged in
+						if(!currentUser){ %>
+						<li><a class="navButton" href="/login">Login</a></li>
+						<li><a class="navButton" href="/register">Signup</a></li>
+						<% } else{ //if logged in %>
+						<li><a href="#"><strong><%= currentUser.username %></strong></a></li>
+						<li><a class="navButton" href="/logout">Logout</a></li>
+						<% }; %>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	
+	<div class="container">
+		<% if(error && error.length > 0){ %>
+		<div class="alert alert-danger" role="alert">
+			<%= error %>
+		</div>
+		<% }; %>
+		<% if(success && success.length > 0){ %>
+		<div class="alert alert-success" role="alert">
+			<%= success %>
+		</div>
+		<% }; %>
+	</div>
+	
