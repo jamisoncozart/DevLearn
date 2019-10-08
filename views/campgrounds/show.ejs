@@ -35,12 +35,21 @@
 					<% }; %>
 				</div>
 			</div>
-			<div class="well">
-				<div class="text-right">
-					<a class="btn btn-success" href="/campgrounds/<%= campground._id %>/comments/new">Add New Comment</a>
+			
+			<!-- COMMENTS SECTION -->
+			
+			<div class="card">
+				<div class="row" style="padding-top: 16px">
+					<div class="col-sm">
+						<h4 class="my-1"><strong>Comments</strong></h4>
+					</div>
+					<div class="col-sm text-right">
+						<a class="btn btn-success mt-16" href="/campgrounds/<%= campground._id %>/comments/new">Add New Comment</a>
+					</div>
 				</div>
-				<hr>
-				<% campground.comments.forEach(function(comment){ %>
+				<hr class="mb-0">
+				<div class="card-body">
+					<% campground.comments.forEach(function(comment){ %>
 					<div class="row">
 						<div class="col-md-12">
 							<strong><%= comment.author.username %></strong>
@@ -55,6 +64,7 @@
 						</div>
 					</div>
 				<% }); %>
+				</div>
 			</div>
 		</div>
 	</div>
