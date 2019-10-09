@@ -10,7 +10,16 @@
 			</p>
 		</div>
 	</header>
-	
+	<div class="d-flex justify-content-center" style="margin-bottom: 16px">
+		<p>
+			<form action="/campgrounds" method="GET" class="form-inline">
+				<div class="form-group">
+					<input type="text" name="search" placeholder="Campground search..." class="form-control mr-2">
+					<input type="submit" value="Search" class="btn btn-primary">
+				</div>
+			</form>
+		</p>
+	</div>
 	<div class="row text-center">
 			<% campgrounds.forEach(function(campground){ %>
 					<div class="col-md-3 mb-4">

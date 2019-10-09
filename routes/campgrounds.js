@@ -7,14 +7,30 @@ var middleware = require("../middleware");
 
 //index route
 router.get("/", function(req,res){
-	//Get all campgrounds from DB
-	Campground.find({}, function(err, allCampgrounds){
-		if(err){
-			console.log(err);
-		} else{
-			res.render("campgrounds/index", {campgrounds: allCampgrounds});
-		}
-	});
+	if(req.query.search){
+		const regex = new RegExp(escapeRegex(req.query.search), "gi");
+		Campground.find({name: regex}, function(err, allCampgrounds){
+			if(err){
+				console.log(err);
+			} else{
+				if(allCampgrounds.length < 1){
+					req.flash("error", 'No matches were found for "' + req.query.search + '"');
+					res.redirect("back");
+				} else{
+					res.render("campgrounds/index", {campgrounds: allCampgrounds});
+				}
+			}
+		});
+	} else{
+		//Get all campgrounds from DB
+		Campground.find({}, function(err, allCampgrounds){
+			if(err){
+				console.log(err);
+			} else{
+				res.render("campgrounds/index", {campgrounds: allCampgrounds});
+			}
+		});
+	}
 });
 
 //CREATE Route == add new campground to DB
@@ -103,6 +119,9 @@ function isLoggedIn(req, res, next){
 	res.redirect("/login");
 };
 
+function escapeRegex(text){
+	return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}
 
 
 module.exports = router;
