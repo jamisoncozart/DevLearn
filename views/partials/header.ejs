@@ -4,6 +4,7 @@
 		<title>YelpCamp</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<link href="https://fonts.googleapis.com/css?family=Roboto:400,900&display=swap" rel="stylesheet">
+		<script src="https://kit.fontawesome.com/168ac3dde5.js" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="/stylesheets/main.css">
 	</head>
 <body>	
@@ -23,11 +24,11 @@
 				<ul class="navbar-nav mt-2 mt-lg-0">
 					<% //if not logged in
 					if(!currentUser){ %>
-						<li class="mx-2 nav-item"><a class="nav-link" href="/login">Login</a></li>
-						<li class="mx-2 nav-item"><a class="nav-link" href="/register">Signup</a></li>
+						<li class="mx-2 nav-item"><a class="nav-link" href="/login" style="padding: 8px 0"><i class="fas fa-sign-in-alt" style="padding: 0"></i> Login</a></li>
+						<li class="mx-2 nav-item"><a class="nav-link" href="/register" style="padding: 8px 0"><i class="fas fa-user-plus" style="padding: 0"></i> Signup</a></li>
 					<% } else{ //if logged in %>
-						<li class="mx-2 nav-item"><a class="nav-link" href="#"><strong><%= currentUser.username %></strong></a></li>
-						<li class="mx-2 nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+						<li class="mx-2 nav-item" style="height: 40px"><a class="nav-link" href="#" style="padding-top: 8px"><strong><i class="fas fa-user" aria-hidden="true"></i> <%= currentUser.username %></strong></a></li>
+						<li class="mx-2 nav-item"><a class="nav-link" href="/logout" style="padding: 8px 0"><i class="fas fa-sign-out-alt" style="padding: 0"></i> Logout</a></li>
 					<% }; %>
 				</ul>
 			</div>

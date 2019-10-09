@@ -42,13 +42,10 @@
 				<div class="card-body py-0">
 					<div class="row mb-2" style="padding-top: 16px">
 						<div class="col-sm">
-							<h4 class="my-1"><strong>Comments</strong></h4>
+							<h4 class="my-1"><strong>Comments <i class="far fa-comment-alt" style="font-size: 0.9em"></i></strong></h4>
 						</div>
-						<!-- <div class="col-sm text-right">
-							<a class="btn btn-success mt-16" href="/campgrounds/<%=// campground._id %>/comments/new">Add New Comment</a>
-						</div> -->
 						<div class="col-sm text-right">
-							<a class="btn btn-success mt-16" role="button" data-toggle="collapse" href="#collapseComment" aria-expanded="false" aria-controls="collapseComment">Add New Comment</a>
+							<a class="btn btn-success mt-16" role="button" data-toggle="collapse" href="#collapseComment" aria-expanded="false" aria-controls="collapseComment"><i class="fas fa-plus"></i> Add New Comment</a>
 						</div>
 					</div>
 				
@@ -94,13 +91,13 @@
 						<div class="row">
 							<div class="col-md-12">
 								<strong>
-									<%// if (currentUser && currentUser._id.equals(comment.author.id)) { %>
+									<% if (currentUser && currentUser._id.equals(comment.author.id)) { %>
 										<!--If the current user owns the comment, change the color of the user icon-->
-										<!-- <span style="color: orange;" class="glyphicon glyphicon-user" aria-hidden="true"></span> -->
-									<%// } else { %>
+										<i class="fas fa-user" aria-hidden="true" style="color: #fc9003; font-size: 0.9em;"></i>
+									<% } else { %>
 										<!--Else just display it black-->
-										<!-- <span class="glyphicon glyphicon-user" aria-hidden="true"></span> -->
-									<%// } %>
+										<i class="fas fa-user" aria-hidden="true" style="color: black; font-size: 0.9em;"></i>
+									<% } %>
 									<!--Print out the author username-->
 									<%= comment.author.username %>
 								</strong>
