@@ -1,25 +1,67 @@
 <% include ../partials/header %>
-
 <div class="container">
-	<header class="jumbotron">
-		<div class="container">	
-			<h1>Welcome to YelpCamp!</h1>
-			<p>	View our hand-picked campgrounds from all over the world</p>
+	<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+	  <ol class="carousel-indicators">
+		<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+		<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+		<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+	  </ol>
+	  <div class="carousel-inner" style="height: 300px, overflow: hidden;">
+		<div class="carousel-item active img-div">
+			<div class="img-div">
+				<img class="d-block w-100" src="https://images.wallpaperscraft.com/image/dark_black_and_white_abstract_black_background_76353_2560x1440.jpg" alt="First slide">
+				<div class="carousel-caption d-none d-md-block">
+					<h5>Don't Limit Yourself</h5>
+					<p>After you learn your first programming language, trying another one just gets easier</p>
+				</div>
+			</div>
+		</div>
+		<div class="carousel-item">
+			<div class="img-div">
+				<img class="d-block w-100" src="https://wallpaperplay.com/walls/full/e/0/e/257421.jpg" alt="Second slide">
+				<div class="carousel-caption d-none d-md-block">
+					<h5>A World of Opportunities</h5>
+					<p>Think outside the box when crafting your next project</p>
+				</div>
+			</div>
+		</div>
+		<div class="carousel-item">
+			<div class="img-div">
+				<img class="d-block w-100" src="https://wallpapercave.com/wp/v4tQ0HK.jpg" alt="Third slide">
+				<div class="carousel-caption d-none d-md-block">
+					<h5>Start Today!</h5>
+					<p>All it takes is initiative. If you want it, you will achieve it</p>
+				</div>
+			</div>
+		</div>
+	  </div>
+	  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		<span class="sr-only">Previous</span>
+	  </a>
+	  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+		<span class="carousel-control-next-icon" aria-hidden="true"></span>
+		<span class="sr-only">Next</span>
+	  </a>
+	</div>
+	
+	<!-- SEARCH BAR -->
+	<div class="searchBar">
+		<div class="d-flex justify-content-center">
 			<p>
-				<a class="btn btn-primary btn-large" href="/campgrounds/new">Add New Campground</a>
+				<form action="/campgrounds" method="GET" class="form-inline">
+					<div class="form-group">
+						<input type="text" name="search" placeholder="Campground search..." class="form-control mr-2">
+						<input type="submit" value="Search" class="btn btn-primary">
+					</div>
+				</form>
 			</p>
 		</div>
-	</header>
-	<div class="d-flex justify-content-center" style="margin-bottom: 16px">
-		<p>
-			<form action="/campgrounds" method="GET" class="form-inline">
-				<div class="form-group">
-					<input type="text" name="search" placeholder="Campground search..." class="form-control mr-2">
-					<input type="submit" value="Search" class="btn btn-primary">
-				</div>
-			</form>
-		</p>
 	</div>
+</div>
+
+	
+<div class="container">
 	<div class="row text-center">
 			<% campgrounds.forEach(function(campground){ %>
 					<div class="col-md-3 mb-4">
