@@ -1,5 +1,13 @@
 <% include ../partials/header %>
+
 <div class="container">
+	<% if(currentUser && currentUser.isAdmin){ %>
+		<div class="text-center p-2" style="background: red; margin-bottom: 16px;">
+			<h4 class="m-0" style="background: black; color: red;">
+				<strong>You're an admin!</strong>
+			</h4>
+		</div>
+	<% } %>
 	<div id="carouselExampleIndicators" class="carousel slide d-none d-md-block" data-ride="carousel">
 	  <ol class="carousel-indicators">
 		<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -45,29 +53,6 @@
 	  </a>
 	</div>
 	
-	<!-- SEARCH BAR -->
-	<!-- <div class="searchBar">
-		<div class="d-flex justify-content-between">
-			<div class="p-2" style="width: 200px">
-				<p>
-					
-				</p>
-			</div>
-			<div class="p-2">
-				<form action="/campgrounds" method="GET" class="form-inline">
-					<div class="form-group">
-						<input type="text" name="search" placeholder="Campground search..." class="form-control mr-2">
-						<input type="submit" value="Search" class="btn btn-primary">
-					</div>
-				</form>
-			</div>	
-			<div class="p-2">
-				<a class="btn btn-primary" href="/campgrounds/new"><i class="fas fa-plus"></i><span class="d-none d-md-block"> New Campground</span></a>
-			</div>
-		</div>
-	</div>
-</div> -->
-	
 	<div class="searchBar" style="padding: 0">
 		<div class="row" style="padding: 16px;">
 			<div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-xs-6 text-center my-1">
@@ -106,9 +91,9 @@
 	
 	<!-- PAGINATION FEATURE -->
 	
-	<nav aria-label="Page navigation">
+	<nav aria-label="Page navigation" class="py-2">
 		<% if (pages && pages > 0) { %>
-		<ul class="pagination justify-content-center">
+		<ul class="pagination justify-content-center m-0">
 			<% if (current == 1) { %>
 			<li class="page-item disabled"><a class="page-link">First</a></li>
 			<% } else { %>
