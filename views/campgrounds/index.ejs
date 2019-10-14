@@ -76,11 +76,21 @@
 <div class="container">
 	<div class="row text-center">
 		<% campgrounds.forEach(function(campground){ %>
-			<div class="col-xl-3 col-lg-4 col-sm-6 col-xs-12 mb-4">
+			<div class="col-xl-3 col-lg-4 col-sm-6 col-xs-12" style="margin-bottom: 16px">
 				<div class="card crop">
 					<img src="<%= campground.image %>" class="card-img-top front-page-card img-fluid">
 					<div class="card-body front-card-body">
 						<h5 class="card-title mb-xs-1 mb-sm-2"><%= campground.name %></h5>
+						<%// campground.comments.forEach(function(array){ %>
+							<%// array = array.filter(function(element){ %>
+								<%// return element; %>
+						<%// }); %>
+						<div>
+							<h5>
+								<span class="badge badge-pill badge-light"><i class="fas fa-heart" style="color: red;"></i> <%= campground.likes.length %></span>
+								<span class="badge badge-pill badge-light"><i class="fas fa-comment"></i> <%= campground.comments.length %></span>
+							</h5>
+						</div>
 						<a href="/campgrounds/<%= campground.slug %>" class="btn btn-primary d-none d-sm-block">More Info</a>
 						<a href="/campgrounds/<%= campground.slug %>" class="btn btn-primary btn-sm d-sm-none w-100">More Info</a>
 					</div>

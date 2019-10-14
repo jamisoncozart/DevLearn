@@ -75,14 +75,35 @@ router.put("/:comment_id", middleware.checkCommentOwnership, function(req,res){
 });
 
 //COMMENT DELETE ROUTE
+// router.delete("/:comment_id", middleware.checkCommentOwnership, function(req,res){
+// 	Comment.findByIdAndRemove(req.params.comment_id, function(err){
+// 		if(err){
+// 			res.redirect("back");
+// 		} else {
+// 			Campground.findByIdAndUpdate(req.params.id, {
+// 				$pull: {
+// 					comments: req.params.comment_id
+// 				}
+// 			}, function(err, data){
+// 				if(err){
+// 					console.log(err);
+// 				} else{
+// 					req.flash("success", "Comment Deleted!");
+// 					res.redirect("/campgrounds/" + req.params.slug);
+// 				}
+// 			});
+// 		}
+// 	});
+// });
+
 router.delete("/:comment_id", middleware.checkCommentOwnership, function(req,res){
-	Comment.findByIdAndRemove(req.params.comment_id, function(err){
-		if(err){
-			res.redirect("back");
-		} else {
-			req.flash("success", "Comment Deleted!");
-			res.redirect("/campgrounds/" + req.params.slug);
-		}
+	Campground.update({slug: req.params.slug}, {$pull: {comments: req.params.comment_id}}, function(err, campground){
+			if(err){
+				console.log(err);
+			} else{
+				req.flash("success", "Comment Deleted!");
+				res.redirect("/campgrounds/" + req.params.slug);
+			}
 	});
 });
 

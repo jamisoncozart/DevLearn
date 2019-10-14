@@ -25,7 +25,13 @@ var campgroundSchema = new mongoose.Schema({
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "Comment"
 		}
-	]
+	],
+	likes: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        }
+    ]
 });
 
 // add a slug before the campground gets saved to the database

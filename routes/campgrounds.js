@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var Campground = require("../models/campgrounds");
+var Comment = require("../models/comment");
 
 //automatically requires index.js (because index)
 var middleware = require("../middleware");
@@ -91,7 +92,7 @@ router.get("/new", middleware.isLoggedIn, function(req,res){
 router.get("/:slug", function(req,res){
 	//find the campground with provided ID
 	//populate found campground object with appropriate comments based on id's within the campground's comments object
-	Campground.findOne({slug: req.params.slug}).populate("comments").exec(function(err, foundCampground){
+	Campground.findOne({slug: req.params.slug}).populate("comments likes").exec(function(err, foundCampground){
 		if(err){
 			req.flash("error", "Campground not found")
 			res.redirect("back");
@@ -102,6 +103,37 @@ router.get("/:slug", function(req,res){
 	req.params.id;
 	//render show template with that campground	
 });
+
+// Campground Like Route
+router.post("/:slug/like", middleware.isLoggedIn, function (req, res) {
+    Campground.findOne({slug: req.params.slug}, function (err, foundCampground) {
+        if (err) {
+            console.log(err);
+			console.log("like post error")
+            return res.redirect("/campgrounds");
+        }
+        // check if req.user._id exists in foundCampground.likes
+        var foundUserLike = foundCampground.likes.some(function (like) {
+            return like.equals(req.user._id);
+        });
+        if (foundUserLike) {
+            // user already liked, removing like
+            foundCampground.likes.pull(req.user._id);
+        } else {
+            // adding the new user like
+            foundCampground.likes.push(req.user);
+        }
+        foundCampground.save(function (err) {
+            if (err) {
+                console.log(err);
+				console.log("campground save error - like")
+                return res.redirect("/campgrounds");
+            }
+            return res.redirect("/campgrounds/" + foundCampground.slug);
+        });
+    });
+});
+
 
 //EDIT CAMPGROUND ROUTE
 router.get("/:slug/edit", middleware.checkCampgroundOwnership, function(req,res){
@@ -136,14 +168,30 @@ router.put("/:slug", middleware.checkCampgroundOwnership, function(req,res){
 
 // DESTROY CAMPGROUND ROUTE
 router.delete("/:slug", middleware.checkCampgroundOwnership, function(req,res){
-	Campground.findOneAndRemove({slug: req.params.slug}, function(err){
+	Campground.findOne({slug: req.params.slug}, function(err, foundCampground){
 		if(err){
 			res.redirect("/campgrounds");
 		} else{
-			req.flash("success", "Campground Deleted!");
-			console.log("campsite was deleted");
-			res.redirect("/campgrounds");
-		}
+			Comment.remove({
+				//remove all related comments
+				_id: { $in: foundCampground.comments },
+				function(err, result){
+					if (err){
+						console.log(err);
+					}
+				}
+			});
+			//Remove Campground
+			foundCampground.remove(function(err){
+				if(err){
+					res.redirect("back");
+				} else {
+					req.flash("success", "Campground Deleted!");
+					console.log("campsite was deleted");
+					res.redirect("/campgrounds");
+				}
+			});
+		};
 	});
 });
 
