@@ -1,12 +1,23 @@
 body {
 	background-color: #000;
+	margin: 0;
 }
 
 #landing-header{
 	z-index: 1;
-	position: relative;
-	text-align: center;
-	padding-top: 40vh;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+	min-height: -webkit-fill-available;
+}
+
+footer {
+	width: 100%;
+	position: absolute;
+  	bottom: 0;
+	background-color: #2e2e2e;
+	color: #fff;
 }
 
 #landing-header h1{
@@ -19,10 +30,14 @@ body {
 	height: 100%;
 	top: 0;
 	left: 0;
-	z-index: 0;
+	z-index: -1;
 	list-style: none;
 	margin: 0;
 	padding: 0;
+}
+
+ul {
+	z-index: -1;
 }
 
 .slideshow li {
