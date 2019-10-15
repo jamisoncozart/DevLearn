@@ -17,7 +17,7 @@
 	  <div class="carousel-inner" style="height: 300px, overflow: hidden;">
 		<div class="carousel-item active img-div">
 			<div class="img-div">
-				<img class="d-block w-100" src="https://images.wallpaperscraft.com/image/dark_black_and_white_abstract_black_background_76353_2560x1440.jpg" alt="First slide">
+				<img class="d-block w-100" src="https://cdn.i-scmp.com/sites/default/files/styles/1200x800/public/d8/images/methode/2019/03/16/35e584f4-46f3-11e9-b5dc-9921d5eb8a6d_image_hires_194000.JPG?itok=RiqWzzUS&v=1552736407" alt="First slide">
 				<div class="carousel-caption d-none d-md-block">
 					<h5>Don't Limit Yourself</h5>
 					<p>After you learn your first programming language, trying another one just gets easier</p>
@@ -26,7 +26,7 @@
 		</div>
 		<div class="carousel-item">
 			<div class="img-div">
-				<img class="d-block w-100" src="https://wallpaperplay.com/walls/full/e/0/e/257421.jpg" alt="Second slide">
+				<img class="d-block w-100" src="https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2015/06/webdesign.jpg" alt="Second slide">
 				<div class="carousel-caption d-none d-md-block">
 					<h5>A World of Opportunities</h5>
 					<p>Think outside the box when crafting your next project</p>
@@ -35,7 +35,7 @@
 		</div>
 		<div class="carousel-item">
 			<div class="img-div">
-				<img class="d-block w-100" src="https://wallpapercave.com/wp/v4tQ0HK.jpg" alt="Third slide">
+				<img class="d-block w-100" src="https://codacy.blog/wp-content/uploads/2018/10/20181002_WhyCodingStandardsMatter.jpg" alt="Third slide">
 				<div class="carousel-caption d-none d-md-block">
 					<h5>Start Today!</h5>
 					<p>All it takes is initiative. If you want it, you will achieve it</p>
@@ -56,7 +56,7 @@
 	<div class="searchBar" style="padding: 0">
 		<div class="row" style="padding: 16px;">
 			<div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-xs-6 text-center my-1">
-				<a class="btn btn-primary w-100 w-lg-50 text-center" href="/campgrounds/new"><i class="fas fa-plus"></i> New Campground</a>
+				<a class="btn btn-primary w-100 w-lg-50 text-center" href="/campgrounds/new"><i class="fas fa-plus"></i> New Resource</a>
 				<hr class="d-sm-none" style="margin-top: 24px">
 			</div>
 			<div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-xs-6 d-xs-none d-sm-none d-md-none d-lg-block">
@@ -64,7 +64,7 @@
 			<div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-xs-auto my-1">
 				<form action="/campgrounds" method="GET" class="">
 					<div class="input-group">
-						<input type="text" name="search" placeholder="Campground search..." class="form-control mr-1">
+						<input type="text" name="search" placeholder="Resource search..." class="form-control mr-1">
 						<input type="submit" value="Search" class="btn btn-primary">
 					</div>
 				</form>
@@ -78,13 +78,9 @@
 		<% campgrounds.forEach(function(campground){ %>
 			<div class="col-xl-3 col-lg-4 col-sm-6 col-xs-12" style="margin-bottom: 16px">
 				<div class="card crop">
-					<img src="<%= campground.image %>" class="card-img-top front-page-card img-fluid">
+					<img src="<%= campground.image %>" class="card-img-top front-page-card img-fluid border-bottom">
 					<div class="card-body front-card-body">
 						<h5 class="card-title mb-xs-1 mb-sm-2"><%= campground.name %></h5>
-						<%// campground.comments.forEach(function(array){ %>
-							<%// array = array.filter(function(element){ %>
-								<%// return element; %>
-						<%// }); %>
 						<div>
 							<h5>
 								<span class="badge badge-pill badge-light"><i class="fas fa-heart" style="color: red;"></i> <%= campground.likes.length %></span>

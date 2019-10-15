@@ -49,7 +49,7 @@ router.post("/", middleware.isLoggedIn, function(req,res){
 router.get("/:comment_id/edit", middleware.checkCommentOwnership, function(req,res){
 	Campground.findOne({slug: req.params.slug}, function(err, foundCampground){
 		if(err || !foundCampground){
-			req.flash("error", "No campground found");
+			req.flash("error", "No resource found");
 			return res.redirect("back");
 		}	
 		Comment.findById(req.params.comment_id, function(err, foundComment){

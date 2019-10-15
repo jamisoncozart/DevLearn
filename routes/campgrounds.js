@@ -23,7 +23,7 @@ router.get("/", function(req,res){
 					res.redirect("back");
 				} else{
 					if(allCampgrounds.length < 1){
-						noMatch = "No campgrounds match that query, please try again";
+						noMatch = "No resources match that query, please try again";
 						req.flash("error", 'No matches were found for "' + req.query.search + '"');
 						res.redirect("back");
 					} else{
@@ -76,7 +76,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
  	if(err){
 		console.log(err);
 	} else{
-		req.flash("success", "Campground Created!");
+		req.flash("success", "Resource Created!");
 		console.log(newlyCreated);
 		res.redirect("/campgrounds");
 	}
@@ -94,7 +94,7 @@ router.get("/:slug", function(req,res){
 	//populate found campground object with appropriate comments based on id's within the campground's comments object
 	Campground.findOne({slug: req.params.slug}).populate("comments likes").exec(function(err, foundCampground){
 		if(err){
-			req.flash("error", "Campground not found")
+			req.flash("error", "Resource not found")
 			res.redirect("back");
 		} else{
 			res.render("campgrounds/show", {campground: foundCampground});
@@ -126,7 +126,6 @@ router.post("/:slug/like", middleware.isLoggedIn, function (req, res) {
         foundCampground.save(function (err) {
             if (err) {
                 console.log(err);
-				console.log("campground save error - like")
                 return res.redirect("/campgrounds");
             }
             return res.redirect("/campgrounds/" + foundCampground.slug);
@@ -158,7 +157,7 @@ router.put("/:slug", middleware.checkCampgroundOwnership, function(req,res){
 					console.log(err);
 					res.redirect("/campgrounds");
 				} else {
-					req.flash("success", "Campground Updated!");
+					req.flash("success", "Resource Updated!");
 					res.redirect("/campgrounds/" + campground.slug);
 				}
 			});
@@ -186,7 +185,7 @@ router.delete("/:slug", middleware.checkCampgroundOwnership, function(req,res){
 				if(err){
 					res.redirect("back");
 				} else {
-					req.flash("success", "Campground Deleted!");
+					req.flash("success", "Resource Deleted!");
 					console.log("campsite was deleted");
 					res.redirect("/campgrounds");
 				}

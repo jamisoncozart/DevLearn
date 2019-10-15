@@ -1,15 +1,27 @@
 body {
 	background-color: #000;
 	margin: 0;
+	font-family: 'Roboto', sans-serif;
 }
 
-#landing-header{
+#landing-header {
 	z-index: 1;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	display: flex;
 	min-height: -webkit-fill-available;
+}
+
+.middle-container {
+	padding: 2rem;
+	justify-content: center;
+	align-items: center;
+	background: rgb(46,46,46);
+	border-radius: 25px;
+	-webkit-box-shadow: 10px 10px 40px 1px rgba(0,0,0,0.97);
+	-moz-box-shadow: 10px 10px 40px 1px rgba(0,0,0,0.97);
+	box-shadow: 10px 10px 40px 1px rgba(0,0,0,0.97);
 }
 
 footer {
@@ -20,8 +32,13 @@ footer {
 	color: #fff;
 }
 
-#landing-header h1{
+h4 {
 	color: #fff;
+}
+
+#landing-header h1 {
+	color: #fff;
+	margin-top: 0;
 }
 
 .slideshow {
@@ -55,22 +72,22 @@ ul {
 }
 
 .slideshow li:nth-child(1) { 
-  background-image: url(http://i.imgur.com/K3mPv14.jpg) 
+  background-image: url(https://hdwallsource.com/img/2017/4/code-web-development-wide-wallpaper-background-61715-63551-hd-wallpapers.jpg) 
 }
 .slideshow li:nth-child(2) { 
-  background-image: url(http://i.imgur.com/SBEmFpv.jpg);
+  background-image: url(https://wallpaperplay.com/walls/full/5/8/7/164642.jpg);
   animation-delay: 10s; 
 }
 .slideshow li:nth-child(3) { 
-  background-image: url(http://i.imgur.com/emvhOnb.jpg);
+  background-image: url(https://wallpaperplay.com/walls/full/f/2/e/164626.jpg);
   animation-delay: 20s; 
 }
 .slideshow li:nth-child(4) { 
-  background-image: url(http://i.imgur.com/2LSMCmJ.jpg);
+  background-image: url(https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2015/06/webdesign.jpg);
   animation-delay: 30s; 
 }
 .slideshow li:nth-child(5) { 
-  background-image: url(http://i.imgur.com/TVGe0Ef.jpg);
+  background-image: url(https://media.geeksforgeeks.org/wp-content/cdn-uploads/20190531175841/Full-Stack-Web-Developer.png);
   animation-delay: 40s; 
 }
 
