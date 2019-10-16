@@ -6,14 +6,14 @@ var express       = require("express"),
 	passport      = require("passport"),
 	LocalStrategy = require("passport-local"),
 	methodOverride = require("method-override"),
-	Campground    = require("./models/campgrounds"),
+	Resource      = require("./models/campgrounds"),
 	Comment       = require("./models/comment"),
 	seedDB        = require("./seeds"),
 	User	      = require("./models/user");
 
 //requiring routes
 var commentRoutes    = require("./routes/comments"),
-	campgroundRoutes = require("./routes/campgrounds"),
+	resourceRoutes = require("./routes/campgrounds"),
 	indexRoutes      = require("./routes/index");
 
 
@@ -50,7 +50,7 @@ app.use(function(req, res, next){
 
 
 app.use(indexRoutes);
-app.use("/campgrounds", campgroundRoutes);
+app.use("/campgrounds", resourceRoutes);
 app.use("/campgrounds/:slug/comments", commentRoutes);
 
 app.listen(3000, function(){

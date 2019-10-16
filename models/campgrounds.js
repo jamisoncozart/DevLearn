@@ -1,9 +1,11 @@
+//uses the mongoose library to allow for object modelling on MongoDB server
 var mongoose = require("mongoose");
 
-var campgroundSchema = new mongoose.Schema({
+//Defining the resource object schema using mongoose
+var resourceSchema = new mongoose.Schema({
 	name: {
 		type: String,
-		required: "Campground name cannot be blank."
+		required: "Resource name cannot be blank."
 	},
 	slug: {
 		type: String,
@@ -34,10 +36,10 @@ var campgroundSchema = new mongoose.Schema({
     ]
 });
 
-// add a slug before the campground gets saved to the database
-campgroundSchema.pre('save', async function (next) {
+// add a slug before the resource gets saved to the database
+resourceSchema.pre('save', async function (next) {
     try {
-        // check if a new campground is being saved, or if the campground name is being modified
+        // check if a new resource is being saved, or if the resource name is being modified
         if (this.isNew || this.isModified("name")) {
             this.slug = await generateUniqueSlug(this._id, this.name);
         }
@@ -47,31 +49,33 @@ campgroundSchema.pre('save', async function (next) {
     }
 });
 
-var Campground = mongoose.model("Campground", campgroundSchema);
+//defining mongoose resource model under new variable and exporting for use in any file that require("/resources.js")
+var Resource = mongoose.model("Resource", resourceSchema);
+module.exports = Resource;
 
-module.exports = Campground;
-
-async function generateUniqueSlug(id, campgroundName, slug) {
+//Generates a unique semantic URL id taking the original ID, the name of the resource, and returning the newly created slug
+async function generateUniqueSlug(id, resourceName, slug) {
     try {
         // generate the initial slug
         if (!slug) {
-            slug = slugify(campgroundName);
+            slug = slugify(resourceName);
         }
-        // check if a campground with the slug already exists
-        var campground = await Campground.findOne({slug: slug});
-        // check if a campground was found or if the found campground is the current campground
-        if (!campground || campground._id.equals(id)) {
+        // check if a resource with the slug already exists
+        var resource = await Resource.findOne({slug: slug});
+        // check if a resource was found or if the found resource is the current resource
+        if (!resource || resource._id.equals(id)) {
             return slug;
         }
         // if not unique, generate a new slug
-        var newSlug = slugify(campgroundName);
+        var newSlug = slugify(resourceName);
         // check again by calling the function recursively
-        return await generateUniqueSlug(id, campgroundName, newSlug);
+        return await generateUniqueSlug(id, resourceName, newSlug);
     } catch (err) {
         throw new Error(err);
     }
 }
 
+//Will create a semantic URL ID using a string name passed into it.
 function slugify(text) {
     var slug = text.toString().toLowerCase()
         .replace(/\s+/g, '-')        // Replace spaces with -

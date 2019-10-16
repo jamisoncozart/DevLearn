@@ -3,7 +3,7 @@
 <div class="container">
 	<h1 class="text-center">Edit Comment</h1>
 	<div style="width: 40%; margin: 25px auto;">
-		<form action = "/campgrounds/<%= campground_slug %>/comments/<%= comment._id %>?_method=PUT" method="POST">
+		<form action = "/campgrounds/<%= resource_slug %>/comments/<%= comment._id %>?_method=PUT" method="POST">
 			<div class="form-group">
 				<textarea class="form-control" type = "text" name="comment[text]" rows="4"><%= comment.text %></textarea>
 			</div>

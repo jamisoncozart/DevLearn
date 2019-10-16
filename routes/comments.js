@@ -1,25 +1,25 @@
 var express = require("express");
 var router = express.Router({mergeParams: true});
-var Campground = require("../models/campgrounds"),
+var Resource = require("../models/campgrounds"),
 	Comment    = require("../models/comment");
 var middleware = require("../middleware");
 
 //comments new
 router.get("/new", middleware.isLoggedIn, function(req, res){
-	//find campground by id
-	Campground.findOne({slug: req.params.slug}, function(err, campground){
+	//find resource by id
+	Resource.findOne({slug: req.params.slug}, function(err, resource){
 		if(err){
 			console.log(err);
 		} else{
-			res.render("comments/newComment", {campground: campground});
+			res.render("comments/newComment", {resource: resource});
 		}
 	});
 });
 
 //comments create
 router.post("/", middleware.isLoggedIn, function(req,res){
-	//look up campground using id
-	Campground.findOne({slug: req.params.slug}, function(err, campground){
+	//look up resource using id
+	Resource.findOne({slug: req.params.slug}, function(err, resource){
 		if(err){
 			console.log(err);
 			res.redirect("/campgrounds");
@@ -33,12 +33,12 @@ router.post("/", middleware.isLoggedIn, function(req,res){
 					comment.author.username = req.user.username;
 					//save comment
 					comment.save();
-					campground.comments.push(comment);
-					campground.save();
+					resource.comments.push(comment);
+					resource.save();
 					console.log(comment);
 					req.flash("success", "Comment Created!");
 					//might need a fix=========================================================================
-					res.redirect("/campgrounds/" + campground.slug);
+					res.redirect("/campgrounds/" + resource.slug);
 				}
 			});
 		}
@@ -47,8 +47,8 @@ router.post("/", middleware.isLoggedIn, function(req,res){
 
 //COMMENTS EDIT ROUTE
 router.get("/:comment_id/edit", middleware.checkCommentOwnership, function(req,res){
-	Campground.findOne({slug: req.params.slug}, function(err, foundCampground){
-		if(err || !foundCampground){
+	Resource.findOne({slug: req.params.slug}, function(err, foundResource){
+		if(err || !foundResource){
 			req.flash("error", "No resource found");
 			return res.redirect("back");
 		}	
@@ -56,7 +56,7 @@ router.get("/:comment_id/edit", middleware.checkCommentOwnership, function(req,r
 			if(err){
 				res.redirect("back");
 			} else{
-				res.render("comments/edit", {campground_slug: req.params.slug, comment: foundComment});
+				res.render("comments/edit", {resource_slug: req.params.slug, comment: foundComment});
 			}
 		});
 	});
@@ -97,7 +97,7 @@ router.put("/:comment_id", middleware.checkCommentOwnership, function(req,res){
 // });
 
 router.delete("/:comment_id", middleware.checkCommentOwnership, function(req,res){
-	Campground.update({slug: req.params.slug}, {$pull: {comments: req.params.comment_id}}, function(err, campground){
+	Resource.update({slug: req.params.slug}, {$pull: {comments: req.params.comment_id}}, function(err, resource){
 			if(err){
 				console.log(err);
 			} else{
