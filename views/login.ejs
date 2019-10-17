@@ -3,12 +3,13 @@
 <div class="container">
 		<h1 class="text-center">Login</h1>
 		<div style="width: 100%; margin: 25px auto;">
+			<!-- Form that makes a POST request to "/login" to login a user -->
 			<form action="/login" method="POST">
 				<div class="form-group">
-					<input class="form-control" type="text" minlength="4" maxlength="16" name="username" placeholder="username">
+					<input class="form-control" type="text" minlength="4" maxlength="16" name="username" placeholder="username" required>
 				</div>
 				<div class="form-group">
-					<input class="form-control" type="password" minlength="6" maxlength="18" name="password" placeholder="password">
+					<input class="form-control" type="password" minlength="6" maxlength="18" name="password" placeholder="password" required>
 				</div>
 				<div class="form-group">
 					<input class="btn btn-lg btn-default btn-block btn-primary" type="submit" value = "Login">

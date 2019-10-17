@@ -3,6 +3,7 @@
 <div class="container">
 	<h1 class="text-center">Add New Comment to <%= resource.name %></h1>
 	<div style="width: 40%; margin: 25px auto;">
+<!-- 	Form to make a post request to post new comment	 -->
 		<form action = "/resources/<%= resource.slug %>/comments" method="POST">
 			<div class="form-group">
 				<textarea class="form-control" type="text" name="comment[text]" placeholder="text" rows="4"></textarea>

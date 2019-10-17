@@ -2,14 +2,15 @@
 <div class="container">
 		<h1 class="text-center">Register</h1>
 		<div style="width: 100%; margin: 25px auto;">
+			<!-- Form to make a POST request to "/register" with the information of a new user signing up -->
 			<form action="/register" method="POST">
 				<!-- USERNAME -->
 				<div class="form-group">
-					<input class="form-control" type="text" minlength="4" maxlength="16" name="username" placeholder="username">
+					<input class="form-control" type="text" minlength="4" maxlength="16" name="username" placeholder="username" required>
 				</div>
 				<!-- PASSWORD -->
 				<div class="form-group">
-					<input class="form-control" type="password" minlength="6" maxlength="18" name="password" placeholder="password">
+					<input class="form-control" type="password" minlength="6" maxlength="18" name="password" placeholder="password" required>
 				</div>
 				<!-- ADMIN CODE -->
 				<!-- <div class="form-group">

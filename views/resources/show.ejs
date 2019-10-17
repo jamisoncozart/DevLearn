@@ -2,28 +2,34 @@
 
 <div class="container">
 	<div class="card" style="margin-bottom: 16px">
+		<!-- RESOURCE IMAGE DISPLAY -->
 		<img class="card-img-top border-bottom" src="<%= resource.image; %>">
 		<div class="card-body">
 			<div class="row">
 				<div class="col-sm">
+					<!-- RESOURCE TITLE DISPLAY -->
 					<h4><a><strong><%= resource.name; %></strong></a></h4>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-9" style="padding-bottom: 10px;">
+					<!-- Form to submit a POST request to like a resource -->
 					<form action="/resources/<%= resource.slug %>/like" method="POST">
 						<div class="btn-group">
+							<!-- If a user is logged in, and they have a like that matches their currentUser._id on the resource -->
 							<% if (currentUser && resource.likes.some(function (like) {
 								return like.equals(currentUser._id)
 							})) { %>
 							<button class="btn btn-sm btn-primary">
 								<i class="fas fa-thumbs-up"></i> Liked (<%= resource.likes.length %>)
 							</button>
+							<!-- Else (if there is no logged in user, or if a logged in user has not liked the resource yet) -->
 							<% } else { %>
 							<button class="btn btn-sm btn-secondary">
 								<i class="fas fa-thumbs-up"></i> Like (<%= resource.likes.length %>)
 							</button>
 							<% } %>
+							<!-- Button to display the Bootstrap 4 Modal that displays all users that have liked the resource -->
 							<button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal"
 									data-target="#resourceLikes">See more details
 							</button>
@@ -31,17 +37,28 @@
 					</form>
 				</div>
 				<div class="col-3 pl-0">
-					<p class="text-right my-1"><strong class="" style="padding: 5px; border: 1px black solid; border-radius: 5px; background: #efefef">$<%= resource.price %></strong></p>
+					<!-- RESOURCE PRICE DISPLAY -->
+					<p class="text-right my-1"><strong class="" style="padding: 5px; border: 1px black solid; border-radius: 5px; background: #efefef">
+						<!-- IF there is no price provided, or if the price is 0 (form doesn't allow this, but covering my ass) -->
+						<% if(!resource.price || resource.price === 0) { %>
+							FREE
+						<!-- Else (if there is a price provided), display price provided -->
+						<% } else { %>
+							$<%= resource.price %>
+						<% }; %>
+					</strong></p>
 				</div>
 			</div>
-			
+			<!-- RESOURCE DESCRIPTION DISPLAY -->
 			<p><%= resource.description; %></p>
 			<p style="margin: 0;">
+				<!-- RESOURCE AUTHOR DISPLAY -->
 				<em>Submitted by: <%= resource.author.username %>, <%= moment(resource.createdAt).fromNow() %></em>
 			</p>
-
+			<!-- if there is a user logged in AND if the user ID is equal to the resource author ID, OR IF there is a current user, and the user is an admin-->
 			<% if(currentUser && resource.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
 			<a class="btn btn-sm btn-warning" href="/resources/<%= resource.slug %>/edit">Edit</a>
+			<!-- From to submit a DELETE request for the current campground -->
 			<form id="delete-form" action="/resources/<%= resource.slug %>?_method=DELETE" method="POST" style="display: inline;">
 				<button class="btn btn-danger btn-sm">Delete</button>
 			</form>
@@ -62,18 +79,21 @@
 				</div>
 			</div>
 
-			<!-- COLLAPSABLE ELEMENT -->
+			<!-- COLLAPSABLE COMMENT ELEMENT -->
 
 			<div class="collapse" id="collapseComment">
 				<div class="card" style="border-left: 5px solid #00C851;">
 					<div class="card-body">
+						<!-- If there is no currentUser logged in -->
 						<% if(!currentUser) { %>
 							<!--If the user is not logged in, direct him to the login page-->
 							<h5>You need to login before you can comment. <a href="/login">Click here</a> to go to the login page.</h5>
 						<% } %>
+						<!-- If there is a logged in user -->
 						<% if(currentUser) { %>
 							<!--If the user is logged in, show the new comment form-->
 							<h4>Write your comment</h4>
+							<!-- form to submit a POST request with new comment -->
 							<form id="add-comment-form" action="/resources/<%= resource.slug %>/comments" method="POST">
 								<div class="form-group">
 									<input class="form-control" type="text" disabled value="<%= currentUser.username %>">
@@ -90,10 +110,10 @@
 				</div>
 			</div>
 
-			<!-- SHOW COMMENTS SECTION -->
-
 			<hr>
-
+			<!-- ======================================================================================================== -->
+			<!-- SHOW COMMENTS SECTION -->
+			<!-- -------------------------------------------------------------------------------------------------- -->
 			<!--Check if there are comments, if there are none say no comments.-->
 			<% if (resource.comments.length === 0) { %>
 				<em style="color: grey;">No comments yet.</em>
@@ -161,9 +181,10 @@
 		</div>
 	</div>
 	<!-- END COMMENT SECTION -->
+	<!-- ====================================================================================================== -->
 </div>
 
-<!-- Resource Likes Modal -->
+<!-- BOOTSTRAP 4 MODAL FOR DISPLAYING RESOURCE LIKES -->
 <!-- Pop-up window to display all users who have liked the resource -->
 <div id="resourceLikes" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -181,11 +202,14 @@
                     </tr>
                     </thead>
                     <tbody>
+					<!-- For each like within the resource object -->
                     <% resource.likes.forEach(function(like) { %>
                         <tr>
+							<!-- Display username of each user who has liked the resource -->
                             <td><span class="badge"><i class="fas fa-user"></i></span> <%= like.username %></td>
                         </tr>
                     <% }); %>
+					<!-- If there are no likes on the current resource -->
                     <% if (resource.likes.length === 0) { %>
                         <tr>
                             <td><em>No likes yet.</em></td>

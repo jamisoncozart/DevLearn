@@ -3,6 +3,7 @@
 <div class="container">
 	<h1 class="text-center">Edit <%= resource.name %></h1>
 	<div style="width: 100%; margin: 25px auto;">
+		<!-- Form that makes a Put request to edit campground (PUT request requires "?_method=PUT" appended to end of POST request URL -->
 		<form action = "/resources/<%= resource.slug %>?_method=PUT" method="POST">
 			<div class="form-group">
 				<input class="form-control" type = "text" maxlength="60" name="resource[name]" value = "<%= resource.name %>" required>
