@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router({mergeParams: true});
-var Resource = require("../models/campgrounds"),
+var Resource = require("../models/resources"),
 	Comment    = require("../models/comment");
 var middleware = require("../middleware");
 
@@ -22,7 +22,7 @@ router.post("/", middleware.isLoggedIn, function(req,res){
 	Resource.findOne({slug: req.params.slug}, function(err, resource){
 		if(err){
 			console.log(err);
-			res.redirect("/campgrounds");
+			res.redirect("/resources");
 		} else{
 			Comment.create(req.body.comment, function(err, comment){
 				if(err){
@@ -38,7 +38,7 @@ router.post("/", middleware.isLoggedIn, function(req,res){
 					console.log(comment);
 					req.flash("success", "Comment Created!");
 					//might need a fix=========================================================================
-					res.redirect("/campgrounds/" + resource.slug);
+					res.redirect("/resources/" + resource.slug);
 				}
 			});
 		}
@@ -69,7 +69,7 @@ router.put("/:comment_id", middleware.checkCommentOwnership, function(req,res){
 			res.redirect("back");
 		} else{
 			req.flash("success", "Comment Editted!");
-			res.redirect("/campgrounds/" + req.params.slug);
+			res.redirect("/resources/" + req.params.slug);
 		}
 	});
 });
@@ -80,7 +80,7 @@ router.put("/:comment_id", middleware.checkCommentOwnership, function(req,res){
 // 		if(err){
 // 			res.redirect("back");
 // 		} else {
-// 			Campground.findByIdAndUpdate(req.params.id, {
+// 			Resource.findByIdAndUpdate(req.params.id, {
 // 				$pull: {
 // 					comments: req.params.comment_id
 // 				}
@@ -89,7 +89,7 @@ router.put("/:comment_id", middleware.checkCommentOwnership, function(req,res){
 // 					console.log(err);
 // 				} else{
 // 					req.flash("success", "Comment Deleted!");
-// 					res.redirect("/campgrounds/" + req.params.slug);
+// 					res.redirect("/resources/" + req.params.slug);
 // 				}
 // 			});
 // 		}
@@ -102,7 +102,7 @@ router.delete("/:comment_id", middleware.checkCommentOwnership, function(req,res
 				console.log(err);
 			} else{
 				req.flash("success", "Comment Deleted!");
-				res.redirect("/campgrounds/" + req.params.slug);
+				res.redirect("/resources/" + req.params.slug);
 			}
 	});
 });

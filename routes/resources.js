@@ -2,7 +2,7 @@
 var express = require("express");
 var router = express.Router();
 //require all models being called in routes (and all objects being exported by the required files)
-var Resource = require("../models/campgrounds");
+var Resource = require("../models/resources");
 var Comment = require("../models/comment");
 
 //automatically requires index.js (because index)
@@ -32,7 +32,7 @@ router.get("/", function(req,res){
 						req.flash("error", 'No matches were found for "' + req.query.search + '"');
 						res.redirect("back");
 					} else{
-						res.render("campgrounds/index", {
+						res.render("resources/index", {
 							resources: allResources,
 							current: pageNumber,
 							pages: Math.ceil(count/perPage),
@@ -52,7 +52,7 @@ router.get("/", function(req,res){
 				if(err){
 					console.log(err);
 				} else{
-					res.render("campgrounds/index", {
+					res.render("resources/index", {
 						resources: allResources,
 						current: pageNumber,
 						pages: Math.ceil(count / perPage),
@@ -79,21 +79,21 @@ router.post("/", middleware.isLoggedIn, function(req, res){
 	
 	//create resource object using the defined variables from user input form
 	var newResource = {name: name, price: price, image: image, description: description, author:author}
-	//Create a new campground and save to DB
+	//Create a new resource and save to DB
 	Resource.create(newResource, function(err, newlyCreated){
 		if(err){
 			console.log(err);
 		} else{
 			req.flash("success", "Resource Created!");
 			console.log(newlyCreated);
-			res.redirect("/campgrounds");
+			res.redirect("/resources");
 		}
 	});
 });
 
 //NEW Route == show form to create new resource
 router.get("/new", middleware.isLoggedIn, function(req,res){
-	res.render("campgrounds/newCamp");
+	res.render("resources/newResource");
 });
 
 //SHOW Route == shows more info about one resource
@@ -105,8 +105,8 @@ router.get("/:slug", function(req,res){
 			req.flash("error", "Resource not found")
 			res.redirect("back");
 		} else{
-			//render show template with that campground	
-			res.render("campgrounds/show", {resource: foundResource});
+			//render show template with that resource
+			res.render("resources/show", {resource: foundResource});
 		}
 	});
 	req.params.id;
@@ -119,7 +119,7 @@ router.post("/:slug/like", middleware.isLoggedIn, function (req, res) {
         if (err) {
             console.log(err);
 			console.log("like post error")
-            return res.redirect("/campgrounds");
+            return res.redirect("/resources");
         }
         //find user that liked the post, return user id
         var foundUserLike = foundResource.likes.some(function (like) {
@@ -136,9 +136,9 @@ router.post("/:slug/like", middleware.isLoggedIn, function (req, res) {
         foundResource.save(function (err) {
             if (err) {
                 console.log(err);
-                return res.redirect("/campgrounds");
+                return res.redirect("/resources");
             }
-            return res.redirect("/campgrounds/" + foundResource.slug);
+            return res.redirect("/resources/" + foundResource.slug);
         });
     });
 });
@@ -147,7 +147,7 @@ router.post("/:slug/like", middleware.isLoggedIn, function (req, res) {
 //EDIT RESOURCE ROUTE
 router.get("/:slug/edit", middleware.checkResourceOwnership, function(req,res){
 	Resource.findOne({slug: req.params.slug}, function(err, foundResource){	
-		res.render("campgrounds/edit", {resource: foundResource});
+		res.render("resources/edit", {resource: foundResource});
 	});
 });
 
@@ -156,7 +156,7 @@ router.put("/:slug", middleware.checkResourceOwnership, function(req,res){
 	//find and update the correct resource by unique slug
 	Resource.findOne({slug: req.params.slug}, function(err, resource){
 		if(err){
-			res.redirect("/campgrounds");
+			res.redirect("/resources");
 		} else{
 			//update resource schema for new data in the user input
 			resource.name = req.body.resource.name;
@@ -167,10 +167,10 @@ router.put("/:slug", middleware.checkResourceOwnership, function(req,res){
 			resource.save(function (err) {
 				if(err){
 					console.log(err);
-					res.redirect("/campgrounds");
+					res.redirect("/resources");
 				} else {
 					req.flash("success", "Resource Updated!");
-					res.redirect("/campgrounds/" + resource.slug);
+					res.redirect("/resources/" + resource.slug);
 				}
 			});
 		}
@@ -182,7 +182,7 @@ router.delete("/:slug", middleware.checkResourceOwnership, function(req,res){
 	
 	Resource.findOne({slug: req.params.slug}, function(err, foundResource){
 		if(err){
-			res.redirect("/campgrounds");
+			res.redirect("/resources");
 		} else{
 			Comment.remove({
 				//remove all related comments
@@ -200,7 +200,7 @@ router.delete("/:slug", middleware.checkResourceOwnership, function(req,res){
 				} else {
 					req.flash("success", "Resource Deleted!");
 					console.log("resource was deleted");
-					res.redirect("/campgrounds");
+					res.redirect("/resources");
 				}
 			});
 		};

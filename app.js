@@ -6,18 +6,18 @@ var express       = require("express"),
 	passport      = require("passport"),
 	LocalStrategy = require("passport-local"),
 	methodOverride = require("method-override"),
-	Resource      = require("./models/campgrounds"),
+	Resource      = require("./models/resources"),
 	Comment       = require("./models/comment"),
 	seedDB        = require("./seeds"),
 	User	      = require("./models/user");
 
 //requiring routes
 var commentRoutes    = require("./routes/comments"),
-	resourceRoutes = require("./routes/campgrounds"),
+	resourceRoutes = require("./routes/resources"),
 	indexRoutes      = require("./routes/index");
 
 
-mongoose.connect("mongodb://localhost/yelp_camp", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
+mongoose.connect("mongodb://localhost/DevLearn", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -50,9 +50,9 @@ app.use(function(req, res, next){
 
 
 app.use(indexRoutes);
-app.use("/campgrounds", resourceRoutes);
-app.use("/campgrounds/:slug/comments", commentRoutes);
+app.use("/resources", resourceRoutes);
+app.use("/resources/:slug/comments", commentRoutes);
 
 app.listen(3000, function(){
-	console.log("YelpCampServer: spinning up on port 3000");
+	console.log("DevLearnServer: spinning up on port 3000");
 });

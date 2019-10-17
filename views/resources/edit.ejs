@@ -3,7 +3,7 @@
 <div class="container">
 	<h1 class="text-center">Edit <%= resource.name %></h1>
 	<div style="width: 100%; margin: 25px auto;">
-		<form action = "/campgrounds/<%= resource.slug %>?_method=PUT" method="POST">
+		<form action = "/resources/<%= resource.slug %>?_method=PUT" method="POST">
 			<div class="form-group">
 				<input class="form-control" type = "text" maxlength="60" name="resource[name]" value = "<%= resource.name %>" required>
 			</div>
@@ -20,7 +20,7 @@
 				<button class="btn btn-lg btn-default btn-block btn-primary">Submit</button>
 			</div>
 		</form>
-		<a href="/campgrounds">Go Back</a>
+		<a href="/resources">Go Back</a>
 	</div>
 </div>
 

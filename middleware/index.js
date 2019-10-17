@@ -1,5 +1,5 @@
 //Fetches resource model from /models directory
-var Resource = require("../models/campgrounds");
+var Resource = require("../models/resources");
 //Fetches Comment model from /models directory
 var Comment = require("../models/comment");
 //Object to store all middleware for easy exportation
