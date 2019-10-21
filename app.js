@@ -16,7 +16,7 @@ var commentRoutes    = require("./routes/comments"),
 	resourceRoutes = require("./routes/resources"),
 	indexRoutes      = require("./routes/index");
 
-
+// mongoose.connect("mongodb://localhost/devLearn");
 mongoose.connect("mongodb+srv://cozartj:cellsoftware69!@cluster0-xagq4.mongodb.net/devLearn?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine", "ejs");
