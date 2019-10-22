@@ -17,14 +17,14 @@ var commentRoutes    = require("./routes/comments"),
 	resourceRoutes = require("./routes/resources"),
 	indexRoutes      = require("./routes/index");
 
-<<<<<<< HEAD
+
 //Define url to use environmental variable to prevent showing server login information on GitHub
 var url = process.env.DATABASEURL || "mongodb://localhost/DevLearn"
 //Connect to mongoDB server using mongoose functionality
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 //Allows for easily pulling variables out of request HTML by providing req.body.[variable name] request calling
 
->>>>>>> 11c76787c783a5e11e6737106539e95492d11f5a
+
 app.use(bodyParser.urlencoded({extended:true}));
 //All files referenced in responses will be assumed to be ejs files (allows for calling file names without adding ".ejs" at the end of the files)
 app.set("view engine", "ejs");
@@ -67,13 +67,9 @@ app.use(indexRoutes);
 app.use("/resources", resourceRoutes);
 app.use("/resources/:slug/comments", commentRoutes);
 
-<<<<<<< HEAD
+
 //Start a server listening for connections (if successful will console.log) (connects to mongoDB)
-app.listen(3000, function(){
-	console.log("DevLearnServer: spinning up on port 3000");
-=======
 var port = process.env.PORT || 3000;
 app.listen(port, function(){
 	console.log("DevLearnServer: spinning up");
->>>>>>> 11c76787c783a5e11e6737106539e95492d11f5a
 });
