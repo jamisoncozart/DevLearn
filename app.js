@@ -17,8 +17,10 @@ var commentRoutes    = require("./routes/comments"),
 	resourceRoutes = require("./routes/resources"),
 	indexRoutes      = require("./routes/index");
 
+//Define url to use environmental variable to prevent showing server login information on GitHub
+var url = process.env.DATABASEURL || "mongodb://localhost/DevLearn"
 //Connect to mongoDB server using mongoose functionality
-mongoose.connect("mongodb://localhost/DevLearn", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 //Allows for easily pulling variables out of request HTML by providing req.body.[variable name] request calling
 app.use(bodyParser.urlencoded({extended:true}));
 //All files referenced in responses will be assumed to be ejs files (allows for calling file names without adding ".ejs" at the end of the files)

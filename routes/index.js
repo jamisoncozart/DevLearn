@@ -54,7 +54,7 @@ router.post("/login", passport.authenticate("local",
 router.get("/logout", function(req,res){
 	//Built in PassportJS function. (Ends Login Session)
 	req.logout();
-	req.flash("success", "Logout Successful");\
+	req.flash("success", "Logout Successful");
 	//redirect to resource homepage
 	res.redirect("/resources");
 });
