@@ -19,7 +19,7 @@ var commentRoutes    = require("./routes/comments"),
 
 
 //Define url to use environmental variable to prevent showing server login information on GitHub
-var url = process.env.DATABASEURL || "mongodb://localhost/DevLearn"
+var url = process.env.DATABASEURL || "mongodb://localhost:27017"
 //Connect to mongoDB server using mongoose functionality
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 //Allows for easily pulling variables out of request HTML by providing req.body.[variable name] request calling

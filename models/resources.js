@@ -49,10 +49,6 @@ resourceSchema.pre('save', async function (next) {
     }
 });
 
-//defining mongoose resource model under new variable and exporting for use in any file that require("/resources.js")
-var Resource = mongoose.model("Resource", resourceSchema);
-module.exports = Resource;
-
 //Generates a unique semantic URL id taking the original ID, the name of the resource, and returning the newly created slug
 async function generateUniqueSlug(id, resourceName, slug) {
     try {
@@ -86,3 +82,7 @@ function slugify(text) {
         .substring(0, 75);           // Trim at 75 characters
     return slug + "-" + Math.floor(1000 + Math.random() * 9000);  // Add 4 random digits to improve uniqueness
 }
+
+//defining mongoose resource model under new variable and exporting for use in any file that require("/resources.js")
+var Resource = mongoose.model("Resource", resourceSchema);
+module.exports = Resource;

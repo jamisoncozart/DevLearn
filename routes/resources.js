@@ -21,7 +21,7 @@ router.get("/", function(req,res){
 		//find all resources that match user search query and display them using pagination feature
 		Resource.find({name: regex}).skip((perPage * pageNumber) - perPage).limit(perPage).exec(function (err, allResources){
 			//count how many Resources are included in the query search
-			Resource.count({name: regex}).exec(function(err, count){
+			Resource.countDocuments({name: regex}).exec(function(err, count){
 				if(err){
 					console.log(err);
 					res.redirect("back");
@@ -48,7 +48,7 @@ router.get("/", function(req,res){
 		//Get all resources from DB
 		Resource.find({}).skip((perPage * pageNumber)-perPage).limit(perPage).exec(function (err, allResources){
 			//Count all resources
-			Resource.count().exec(function(err, count){
+			Resource.countDocuments().exec(function(err, count){
 				if(err){
 					console.log(err);
 				} else{
